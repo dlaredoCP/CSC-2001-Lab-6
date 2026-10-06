@@ -1,13 +1,74 @@
-public record AQueue (String[] strArr) {
+public class AQueue {
+
+    private String[] queue;
+    private int count;
+    private int head;
+    private int tail;
+
+    public AQueue(String[] Queue, int Count){
+        count = Count;
+        queue = Queue;
+        head = 0;
+        tail = 0;
+    }
 
     /** Accepts a size and returns an empty queue of that size */
-    public static AQueue empty_queue(int size){
-        return new AQueue(new String[size]);
+    public static AQueue empty_queue(int len){
+        return new AQueue(new String[len], 0);
     }
 
     /** Accepts a string and adds it to the end of the queue */
     public void enqueue(String str){
+        if (is_empty()){
+            queue[0] = str;
+            count++;
+        } else
+        if (tail+1==queue.length){
+            String[] newQueue = new String[queue.length*2];
+            System.arraycopy(queue,0,newQueue,0,count);
+            newQueue[count] = str;
+            count++;
+            tail = count+head-1;
+            queue = newQueue;
+        } else{
+            queue[count] = str;
+            count++;
+            tail = count+head-1;
+        }
+    }
 
+    /** Removes and returns the element at the front of the queue */
+    public String dequeue(){
+        if (is_empty()){
+            throw new IndexOutOfBoundsException();
+        } else {
+            String front = queue[head];
+            queue[head] = null;
+            count--;
+            head++;
+            return front;
+        }
+    }
+
+    /** Returns the element at the front of the queue, without removing it */
+    public String peek(){
+        if (is_empty()){
+            throw new IndexOutOfBoundsException();
+        } else {
+            return queue[head];
+        }
+    }
+
+
+
+    /** Returns a count of the number of elements currently in the queue */
+    public int size(){
+        return count;
+    }
+
+    /** Returns true when the queue contains no elements */
+    public boolean is_empty(){
+        return count == 0;
     }
 
 }
