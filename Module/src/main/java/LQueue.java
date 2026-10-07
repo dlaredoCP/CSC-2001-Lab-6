@@ -41,6 +41,15 @@ public class LQueue {
         }
     }
 
+    /** Returns the element at the front of the queue */
+    public String peek(){
+        if (is_empty()){
+            throw new IndexOutOfBoundsException();
+        } else {
+            return front.value();
+        }
+    }
+
     /** Returns a count of the number of elements currently in the queue */
     public int size(){
         if (is_empty()){

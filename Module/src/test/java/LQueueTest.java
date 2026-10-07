@@ -49,4 +49,9 @@ class LQueueTest {
         assertEquals("b", queue.reversedEnd().getVal());
     }
 
+    @Test
+    void peek(){
+        LQueue queue = new LQueue(new Node("a", null), new Node("d", new Node("c", new Node("b", null))));
+        assertEquals(queue.peek(), "a");
+    }
 }
