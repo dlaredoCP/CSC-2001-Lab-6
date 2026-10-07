@@ -22,15 +22,20 @@ public class AQueue {
     /** Accepts a string and adds it to the end of the queue */
     public void enqueue(String str){
         if (is_empty()){
-            queue[0] = str;
+            queue[head] = str;
             count++;
         } else
-        if (tail+1==queue.length){
-
-        } else{
-            queue[count] = str;
+        if (head > 0 && tail == capacity-1){
+            queue[head-(capacity%head)] = str;
             count++;
-            tail = count+head-1;
+            tail=head-(capacity%head-1);
+        } else
+        if (count == capacity){
+            throw new IndexOutOfBoundsException("Queue overflow; please dequeue an item if you want to enqueue one!");
+        } else {
+            queue[tail+1] = str;
+            tail++;
+            count++;
         }
     }
 
@@ -45,6 +50,7 @@ public class AQueue {
             head++;
             return front;
         }
+
     }
 
     /** Returns the element at the front of the queue, without removing it */
@@ -55,8 +61,6 @@ public class AQueue {
             return queue[head];
         }
     }
-
-
 
     /** Returns a count of the number of elements currently in the queue */
     public int size(){
