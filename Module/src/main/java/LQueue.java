@@ -14,16 +14,31 @@ public class LQueue {
 
     /** Accepts a string and adds it to the end of the queue */
     public void enqueue(String str){
-        if (front == null){
+        if (is_empty()){
             front = new Node(str, null);
         } else {
+
             end = new Node(str, end);
         }
     }
 
     /** Removes and returns the element at the front of the queue */
-    public String dequeue(String str){
-        return null;
+    public String dequeue(){
+        if (is_empty()){
+            throw new IndexOutOfBoundsException("Unable to dequeue because the array is empty!");
+        } else {
+            String top = front.value();
+            String newTop;
+            if (end == null){
+                front = null;
+            } else {
+                front = new Node(end.value(), null);
+                end = reversedEnd();
+                end = new Node(end.rest().value(), end.rest().rest());
+                end = reversedEnd();
+            }
+            return top;
+        }
     }
 
     /** Returns a count of the number of elements currently in the queue */
@@ -41,7 +56,16 @@ public class LQueue {
 
     /** Returns true when the queue contains no elements */
     public boolean is_empty(){
-        return front == null && end == null;
+        return front == null;
+    }
+
+    /** Reverses the end of the LQueue */
+    public Node reversedEnd(){
+        Node newEnd = null;
+        for (Node cur = end; cur!=null; cur=cur.rest()){
+            newEnd = new Node(cur.value(), newEnd);
+        }
+        return newEnd;
     }
 
 }

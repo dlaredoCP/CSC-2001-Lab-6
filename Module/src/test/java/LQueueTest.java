@@ -22,7 +22,12 @@ class LQueueTest {
 
     @Test
     void dequeue(){
-
+        LQueue ex = LQueue.empty_queue();
+        ex.enqueue("a");
+        ex.enqueue("b");
+        ex.enqueue("c");
+        ex.dequeue();
+        assertEquals(2, ex.size());
     }
 
     @Test
@@ -36,6 +41,12 @@ class LQueueTest {
     @Test
     void is_empty(){
         assertTrue(LQueue.empty_queue().is_empty());
+    }
+
+    @Test
+    void reversedEnd(){
+        LQueue queue = new LQueue(new Node("a", null), new Node("d", new Node("c", new Node("b", null))));
+        assertEquals("b", queue.reversedEnd().getVal());
     }
 
 }

@@ -42,7 +42,7 @@ public class AQueue {
     /** Removes and returns the element at the front of the queue */
     public String dequeue(){
         if (is_empty()){
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Unable to dequeue because the array is empty!");
         } else {
             String front = queue[head];
             queue[head] = null;
